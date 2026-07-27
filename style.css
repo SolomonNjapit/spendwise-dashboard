@@ -1,0 +1,215 @@
+/* ===== CSS Custom Properties (theme) ===== */
+:root {
+  --color-brand: #2f6e62;
+  --color-accent: #d6a32e;
+  --color-surface: #f5f6fa;
+  --color-surface-card: #ffffff;
+  --color-text-primary: #1e2327;
+  --color-text-secondary: #6b7280;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+/* ===== Overall page layout: CSS Grid ===== */
+.dashboard {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: 70px 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  min-height: 100vh;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  grid-area: sidebar;
+  background-color: var(--color-brand);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+}
+
+.sidebar-logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 32px;
+  padding-left: 8px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  transition: background-color 0.2s ease;
+}
+
+.nav-item:hover,
+.nav-item:focus-visible {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.nav-item.active {
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* ===== Header: Flexbox ===== */
+.header {
+  grid-area: header;
+  background-color: var(--color-surface-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header-title {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-user {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.header-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* ===== Main content ===== */
+.main-content {
+  grid-area: main;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+/* Card grid layout */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Each card uses Flexbox internally */
+.card {
+  background-color: var(--color-surface-card);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  cursor: pointer;
+}
+
+.card-title {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.card-amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.card-meta {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Micro-interactions: hover + keyboard focus */
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+/* ===== Responsive: collapse below 768px ===== */
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 70px 1fr;
+    grid-template-areas:
+      "sidebar"
+      "header"
+      "main";
+  }
+
+  .sidebar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .sidebar-logo {
+    margin-bottom: 0;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Stretch goal: dark theme ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-brand: #23514a;
+    --color-accent: #d6a32e;
+    --color-surface: #14161a;
+    --color-surface-card: #1e2226;
+    --color-text-primary: #f3eee4;
+    --color-text-secondary: #9aa1a9;
+  }
+}
